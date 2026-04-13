@@ -20,3 +20,6 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
+        - name: Build using Maven
+      run: mvn clean install
+      working-directory: demo
