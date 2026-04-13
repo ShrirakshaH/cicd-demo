@@ -16,4 +16,4 @@ jobs:
     - name: Build using Maven
       # We changed this to "." so it looks in the main folder you pushed
       run: mvn clean install
-      working-directory: .
+      working-directory: demo
