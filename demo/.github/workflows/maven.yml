@@ -1,0 +1,19 @@
+name: Java CI/CD Pipeline
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+    - name: Build using Maven
+      # We changed this to "." so it looks in the main folder you pushed
+      run: mvn clean install
+      working-directory: .
