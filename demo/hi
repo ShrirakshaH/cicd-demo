@@ -1,0 +1,52 @@
+Here are the direct links, along with the login requirements and usage limits for each platform so you can plan exactly which ones to keep open in your browser tabs.
+
+1. DuckDuckGo AI Chat
+Link: https://duckduckgo.com/chat
+
+Login Required: No. You can use it completely anonymously.
+
+Chat Limits: Very generous. There are no strict daily cutoffs, though they might temporarily throttle you if you spam prompts too fast to prevent abuse.
+
+Best for: The absolute fastest way to get answers without dealing with email verifications or passwords during an exam.
+
+2. HuggingChat
+Link: https://huggingface.co/chat
+
+Login Required: Optional. You can use it as a guest, but logging in (free) lets you save your chat history and access heavier models.
+
+Chat Limits: Highly generous. You rarely hit limits unless you are having massive, hour-long conversations. Sometimes, during peak global hours, you might be put in a brief queue.
+
+3. Groq
+Link: https://groq.com
+
+Login Required: Yes (Free account).
+
+Chat Limits: It uses a token-per-minute rate limit. For standard exam questions (pasting a script, asking for a fix), you will likely never hit the limit. If you do, it resets in minutes, not hours.
+
+4. DeepSeek
+Link: https://chat.deepseek.com
+
+Login Required: Yes (Free account).
+
+Chat Limits: Very generous on their V3 and Coder models. However, because it is extremely popular right now, you might encounter server-busy errors or slower response times during high traffic.
+
+5. Mistral Le Chat
+Link: https://chat.mistral.ai
+
+Login Required: Yes (Free account).
+
+Chat Limits: Generous. They do enforce rate limits to protect their servers, but for an exam session, you are highly unlikely to hit the ceiling unless you paste hundreds of lines of code repeatedly.
+
+6. Poe
+Link: https://poe.com
+
+Login Required: Yes (Free account).
+
+Chat Limits: Strictly managed. Poe gives you a daily allowance of "Compute Points." Basic models cost very few points (you can ask hundreds of questions). Premium models like Claude 3.5 Sonnet cost a lot of points (you might only get 5 to 10 questions before you run out).
+
+7. Claude
+Link: https://claude.ai
+
+Login Required: Yes (Free account).
+
+Chat Limits: Strict. The free tier has a rolling limit. If you ask complex coding questions, you might be locked out after 10-15 messages and told to wait 4 hours. Save this strictly for when you have a massive Jenkins/Docker error that no other AI can solve.
