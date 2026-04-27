@@ -1,0 +1,281 @@
+
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY target/app.jar app.jar
+CMD ["java", "-jar", "app.jar"]
+
+PS C:\Users\raksh\Downloads> java -jar jenkins.war
+
+
+>ngrok config add-authtoken YOUR_ACTUAL_TOKEN_HERE
+MAVEN YML
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "akshatha29/app-image"
+    }
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/akshatha29/https://github.com/akshathavishal2901/final.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${DOCKER_IMAGE}:latest")
+                }
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-creds') {
+                        docker.image("${DOCKER_IMAGE}:latest").push()
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Image successfully built and pushed to Docker Hub'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
+ORIGINAL JENKINS
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "akshatha29/app-image"
+    }
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/akshatha29/https://github.com/akshathavishal2901/final.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${DOCKER_IMAGE}:latest")
+                }
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-creds') {
+                        docker.image("${DOCKER_IMAGE}:latest").push()
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Image successfully built and pushed to Docker Hub'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
+
+
+Jenkins file 
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "akshatha29/app-image"
+    }
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/akshatha29/https://github.com/akshathavishal2901/final.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${DOCKER_IMAGE}:latest")
+                }
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub-creds') {
+                        docker.image("${DOCKER_IMAGE}:latest").push()
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Image successfully built and pushed to Docker Hub'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the Docker image...'
+                
+                bat 'docker build -t myapp .'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing the application...'
+                bat 'docker run myapp'
+            }
+        }
+    }
+}
+
+
+
+OR 
+
+pipeline {
+    agent any
+
+    environment {
+        // Change this to your own Docker Hub username and repo name!
+        DOCKER_IMAGE = "rakshaa21/myapp" 
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                // Use your actual repo URL here
+                git branch: 'main', url: 'https://github.com/ShrirakshaH/dokcer_demo.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // This works on Windows if Docker Desktop is running
+                    docker.build("${DOCKER_IMAGE}:latest")
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // This handles login AND push automatically
+                    // Use the 'dockerhub-creds' ID you created in Jenkins
+                    docker.withRegistry('', 'dockerhub-creds') {
+                        docker.image("${DOCKER_IMAGE}:latest").push()
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Image successfully built and pushed to Docker Hub'
+        }
+        failure {
+            echo 'Pipeline failed - Check console output'
+        }
+    }
+}
+
+
+
+MAVEN FILE 
+
+name: Java CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build using Maven
+        run: mvn clean install
+        working-directory: demo
